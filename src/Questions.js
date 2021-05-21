@@ -26,10 +26,10 @@ class Questions extends React.Component {
             }
         })
 
-        if(document.getElementById("Q1").style.display != "none"){
+        if(document.getElementById("Q1").style.display !== "none"){
           document.getElementById("Q1").style.display = "none";
           document.getElementById("Q2").style.display = "flex";
-        }else if(document.getElementById("Q2").style.display != "none"){
+        }else if(document.getElementById("Q2").style.display !=="none"){
           document.getElementById("Q2").style.display = "none";
           document.getElementById("Q3").style.display = "flex";
         }
@@ -42,10 +42,10 @@ class Questions extends React.Component {
                 isPositive: false,
             }
         })
-        if(document.getElementById("Q1").style.display != "none"){
+        if(document.getElementById("Q1").style.display !== "none"){
           document.getElementById("Q1").style.display = "none";
           document.getElementById("Q4").style.display = "flex";
-        }else if(document.getElementById("Q2").style.display != "none"){
+        }else if(document.getElementById("Q2").style.display !== "none"){
           document.getElementById("Q2").style.display = "none";
           document.getElementById("Q4").style.display = "flex";
         }
@@ -104,6 +104,7 @@ class Questions extends React.Component {
               });
           });
         });
+        console.log(Response);
 
         document.getElementById("Q4").style.display = "none";
 
