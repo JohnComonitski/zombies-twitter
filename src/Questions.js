@@ -25,19 +25,30 @@ class Questions extends React.Component {
                 isPositive: prevState.isPositive,
             }
         })
-        document.getElementById("Q1").style.display = "none";
-        document.getElementById("Q2").style.display = "flex";
+
+        if(document.getElementById("Q1").style.display != "none"){
+          document.getElementById("Q1").style.display = "none";
+          document.getElementById("Q2").style.display = "flex";
+        }else if(document.getElementById("Q2").style.display != "none"){
+          document.getElementById("Q2").style.display = "none";
+          document.getElementById("Q3").style.display = "flex";
+        }
     }
 
     noRelevant(){
         this.setState(prevState => {
             return {
                 isRelevant: false,
-                isPositive: prevState.isPositive,
+                isPositive: false,
             }
         })
-        document.getElementById("Q1").style.display = "none";
-        document.getElementById("Q2").style.display = "flex";
+        if(document.getElementById("Q1").style.display != "none"){
+          document.getElementById("Q1").style.display = "none";
+          document.getElementById("Q4").style.display = "flex";
+        }else if(document.getElementById("Q2").style.display != "none"){
+          document.getElementById("Q2").style.display = "none";
+          document.getElementById("Q4").style.display = "flex";
+        }
     }
     yesPositive(){
         this.setState(prevState => {
@@ -46,8 +57,8 @@ class Questions extends React.Component {
                 isPositive: true,
             }
         })
-        document.getElementById("Q2").style.display = "none";
-        document.getElementById("Q3").style.display = "flex";
+        document.getElementById("Q3").style.display = "none";
+        document.getElementById("Q4").style.display = "flex";
     }
     noPositive(){
         this.setState(prevState => {
@@ -56,8 +67,8 @@ class Questions extends React.Component {
                 isPositive: false,
             }
         })
-        document.getElementById("Q2").style.display = "none";
-        document.getElementById("Q3").style.display = "flex";
+        document.getElementById("Q3").style.display = "none";
+        document.getElementById("Q4").style.display = "flex";
     }
 
     async submit(){
@@ -93,14 +104,16 @@ class Questions extends React.Component {
               });
           });
         });
-        
-        document.getElementById("Q3").style.display = "none";
-        document.getElementById("Q4").style.display = "flex";
-    }
-    
-    nextTweet(){
+
         document.getElementById("Q4").style.display = "none";
+
+        this.nextTweet();
         document.getElementById("Q1").style.display = "flex";
+    }
+
+    nextTweet(){
+        //document.getElementById("Q5").style.display = "none";
+        //document.getElementById("Q1").style.display = "flex";
         onLoad();
 
     }
@@ -114,14 +127,19 @@ class Questions extends React.Component {
                     <div className = "No-btn" onClick={this.noRelevant}> <h4>No</h4> </div>
                 </div>
                 <div className = "Question" id = 'Q2'>
-                    <h3>Is this tweet positive?</h3>
+                    <h3>Does this tweet give an opinion about a specific map?</h3>
+                    <div className  ="Yes-btn" onClick={this.yesRelevant}> <h4>Yes</h4> </div>
+                    <div className = "No-btn" onClick={this.noRelevant}> <h4>No</h4> </div>
+                </div>
+                <div className = "Question" id = 'Q3'>
+                    <h3>Is this opinion positive?</h3>
                     <div className  ="Yes-btn" onClick={this.yesPositive}> <h4>Yes</h4> </div>
                     <div className = "No-btn" onClick={this.noPositive}> <h4>No</h4> </div>
                 </div>
-                <div className = "Question" id = 'Q3'> 
+                <div className = "Question" id = 'Q4'>
                     <div className = "Next-btn"  onClick={this.submit}> <h4>Submit</h4> </div>
                 </div>
-                <div className = "Question" id = 'Q4'> 
+                <div className = "Question" id = 'Q5'>
                     <div className = "Submit-btn" onClick ={this.nextTweet}> <h4>Next Tweet</h4> </div>
                 </div>
 
