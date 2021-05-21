@@ -52,7 +52,7 @@
   display: inline-block;
   align-items: center;
   width:100%;
-  
+
 }
 h3{
   margin-block-start: 0px;
@@ -64,7 +64,7 @@ h4{
 }
 
 .Question{
-  display: flex;  
+  display: flex;
   justify-content: center;
   margin-top: 10px;
 }
@@ -102,6 +102,22 @@ h4{
   border-radius: 10px;
   cursor: pointer;
 }
+.Yes-btn{
+  padding-top: 5px;
+}
+.No-btn{
+  padding-top: 5px;
+}
+.Submit-btn{
+  padding-top: 5px;
+}
+.Next-btn{
+  padding-top: 5px;
+}
+
+.Controls h3{
+  padding-top: 3px;
+}
 
 .Yes-btn:hover{
   opacity: .5;
@@ -123,6 +139,9 @@ h4{
   display: none;
 }
 #Q4{
+  display: none;
+}
+#Q5{
   display: none;
 }
 
