@@ -2,7 +2,8 @@ import './App.css';
 import React from "react";
 import onLoad from "./index.js";
 
-
+var fired = false;
+var q = 0;
 class Questions extends React.Component {
     constructor(props){
         super()
@@ -16,8 +17,97 @@ class Questions extends React.Component {
         this.noPositive = this.noPositive.bind(this);
         this.submit = this.submit.bind(this);
         this.nextTweet = this.nextTweet.bind(this);
+        this.keyDownHandler = this.keyDownHandler.bind(this);
+        this.keyUpHandler = this.keyUpHandler.bind(this);
     }
 
+    componentDidMount(){
+        document.addEventListener('keydown', this.keyDownHandler, false);
+        document.addEventListener('keyup', this.keyUpHandler, false);
+
+        //Tooltip
+        document.getElementById('y1').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('y1').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+        document.getElementById('y2').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('y2').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+        document.getElementById('y3').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('y3').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+        document.getElementById('n1').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('n1').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+        document.getElementById('n2').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('n2').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+        document.getElementById('n3').addEventListener("mouseover",() => {
+            document.getElementById('tip').style.display = "block";
+        })
+        document.getElementById('n3').addEventListener("mouseleave",() => {
+            document.getElementById('tip').style.display = "none";
+        })
+    }
+
+    //Key controllers
+    keyDownHandler(event){
+        if(fired === false){
+            fired = true;
+            if(event.keyCode === 13) {
+                //Yes
+                if(q === 3){
+                  this.submit();
+                  q=0;
+                }
+            }
+            else if(event.keyCode === 89) {
+                //Yes
+                if(q === 0){
+                  this.yesRelevant();
+                }
+                else if(q === 1){
+                  this.yesRelevant();
+                }
+                else if(q === 2){
+                  this.yesPositive();
+                }
+                q++;
+            }
+            else if(event.keyCode === 78) {
+                //No
+                if(q === 0){
+                  this.noRelevant();
+                }
+                else if(q === 1){
+                  this.noRelevant();
+                }
+                else if(q === 2){
+                  this.noPositive();
+                }
+                q = 3;
+            }
+        }
+    }
+    keyUpHandler(event){
+      fired = false;
+    }
+
+    //Button controllers
     yesRelevant(){
         this.setState(prevState => {
             return {
@@ -29,12 +119,13 @@ class Questions extends React.Component {
         if(document.getElementById("Q1").style.display !== "none"){
           document.getElementById("Q1").style.display = "none";
           document.getElementById("Q2").style.display = "flex";
-        }else if(document.getElementById("Q2").style.display !=="none"){
+        }
+        else if(document.getElementById("Q2").style.display !=="none"){
           document.getElementById("Q2").style.display = "none";
           document.getElementById("Q3").style.display = "flex";
         }
-    }
 
+    }
     noRelevant(){
         this.setState(prevState => {
             return {
@@ -43,11 +134,12 @@ class Questions extends React.Component {
             }
         })
         if(document.getElementById("Q1").style.display !== "none"){
-          document.getElementById("Q1").style.display = "none";
-          document.getElementById("Q4").style.display = "flex";
-        }else if(document.getElementById("Q2").style.display !== "none"){
-          document.getElementById("Q2").style.display = "none";
-          document.getElementById("Q4").style.display = "flex";
+            document.getElementById("Q1").style.display = "none";
+            document.getElementById("Q4").style.display = "flex";
+        }
+        else if(document.getElementById("Q2").style.display !== "none"){
+            document.getElementById("Q2").style.display = "none";
+            document.getElementById("Q4").style.display = "flex";
         }
     }
     yesPositive(){
@@ -124,24 +216,27 @@ class Questions extends React.Component {
             <div className = "Controls">
                 <div className = "Question" id = 'Q1'>
                     <h3>Is this tweet about COD Zombies?</h3>
-                    <div className  ="Yes-btn" onClick={this.yesRelevant}> <h4>Yes</h4> </div>
-                    <div className = "No-btn" onClick={this.noRelevant}> <h4>No</h4> </div>
+                    <div className  ="Yes-btn" id="y1" onClick={this.yesRelevant}> <h4>Yes</h4> </div>
+                    <div className = "No-btn" id="n1" onClick={this.noRelevant}> <h4>No</h4> </div>
                 </div>
                 <div className = "Question" id = 'Q2'>
                     <h3>Does this tweet give an opinion about a specific map?</h3>
-                    <div className  ="Yes-btn" onClick={this.yesRelevant}> <h4>Yes</h4> </div>
-                    <div className = "No-btn" onClick={this.noRelevant}> <h4>No</h4> </div>
+                    <div className  ="Yes-btn" id="y2" onClick={this.yesRelevant}> <h4>Yes</h4> </div>
+                    <div className = "No-btn" id="n2" onClick={this.noRelevant}> <h4>No</h4> </div>
                 </div>
                 <div className = "Question" id = 'Q3'>
                     <h3>Is this opinion positive?</h3>
-                    <div className  ="Yes-btn" onClick={this.yesPositive}> <h4>Yes</h4> </div>
-                    <div className = "No-btn" onClick={this.noPositive}> <h4>No</h4> </div>
+                    <div className  ="Yes-btn" id="y3" onClick={this.yesPositive}> <h4>Yes</h4> </div>
+                    <div className = "No-btn" id="n3"onClick={this.noPositive}> <h4>No</h4> </div>
                 </div>
                 <div className = "Question" id = 'Q4'>
                     <div className = "Next-btn"  onClick={this.submit}> <h4>Submit</h4> </div>
                 </div>
                 <div className = "Question" id = 'Q5'>
                     <div className = "Submit-btn" onClick ={this.nextTweet}> <h4>Next Tweet</h4> </div>
+                </div>
+                <div className = "toolTip" id="tip">
+                  <h6> (Control using 'y', 'n', and 'enter')</h6>
                 </div>
 
             </div>

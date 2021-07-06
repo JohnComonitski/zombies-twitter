@@ -54,6 +54,12 @@
   width:100%;
 
 }
+.toolTip{
+    display:none;
+}
+h6{
+  margin: 0;
+}
 h3{
   margin-block-start: 0px;
   margin-block-end: 0px;
